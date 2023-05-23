@@ -1,0 +1,62 @@
+﻿@using ASP111.Services
+@inject TimeService timeService
+@inject DateService dateServices
+@inject DateTimeService dateTimeService
+
+@{
+    ViewData["Title"] = "Services";
+}
+<div class="text-center">
+    <h1 class="display-4">Службы и зависимости</h1>
+</div>
+
+<p>
+    SOLID -  набор рекомнедаций по архитектурной композиции проекта. 
+    <b>D</b> Принцип инверсии зависимостей (dependency inversion principle / DIP) — модули верхних уровней не должны зависеть от модулей нижних уровней,
+    а оба типа модулей должны зависеть от абстракций; сами абстракции не должны зависеть от деталей,
+    а вот детали должны зависеть от абстракций.
+</p>
+
+<p>
+    Службы (в ООП) - обьекты глобального типа, доступные из различных частей проекта.
+    В отличии от глобальных переменных службы имеют различные области
+</p>
+
+<p>
+    Данные от службы DateService: <b>@ViewData["date"]</b><br />
+    Данные от службы TimeService: <b>@ViewData["time"]</b><br />
+    Данные от службы DateTimeService: <b>@ViewData["now"]</b>
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Object</th>
+            <th>Hash-code(in controll)</th>
+            <th>Hash-code(in view)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>HomeController  </td>
+            <td>@ViewData["ctrl-hash"]</td>
+            <td>----</td>
+        </tr>
+        <tr>
+            <td>DateService  </td>
+            <td>@ViewData["date-hash"]</td>
+            <td>@dateServices.GetHashCode()<td>
+        </tr>
+        <tr>
+            <td>TimeService  </td>
+            <td>@ViewData["time-hash"]</td>
+            <td>@timeService.GetHashCode()<td>
+        </tr>
+        <tr>
+            <td>DateTimeService  </td>
+            <td>@ViewData["now-hash"]</td>
+            <td>@timeService.GetHashCode()
+            <td>
+        </tr>
+    </tbody>
+</table>
