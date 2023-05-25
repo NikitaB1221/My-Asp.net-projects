@@ -8,12 +8,17 @@ namespace ASP_111.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        // Декларируем зависимости
+        // декларируем зависимость
         private readonly DateService _dateService;
         private readonly TimeService _timeService;
         private readonly DateTimeService _dateTimeService;
-        //  Признак readonly говорит о том что данные должны инициализироваться конструктором
-        public HomeController(ILogger<HomeController> logger, DateService dateService, TimeService timeService, DateTimeService dateTimeService)  //  параметр в конструкторе требует передать ссылку на обьект, иначе обьект конструктор не может быть создан - это являеться зависимостью
+
+        // признак readonly говорит о том, что данные должны инициализироваться конструктором
+        public HomeController(                // параметр в конструкторе требует передачи ссылки,
+            ILogger<HomeController> logger,   // иначе объект контроллера не может быть построен
+            DateService dateService,          // - это является зависимостью
+            TimeService timeService,
+            DateTimeService dateTimeService)
         {
             _logger = logger;
             _dateService = dateService;
@@ -35,17 +40,21 @@ namespace ASP_111.Controllers
         {
             return View();
         }
+
         public ViewResult Services()
         {
             ViewData["date"] = _dateService.GetDate();
             ViewData["time"] = _timeService.GetTime();
-            ViewData["now"] = _dateTimeService.GetNow();
-            ViewData["date-hash"] = _dateService.GetHashCode();
+            ViewData["datetime"] = _dateTimeService.GetNow();
+
+            ViewData["datetime-hash"] = _dateTimeService.GetHashCode();
             ViewData["time-hash"] = _timeService.GetHashCode();
-            ViewData["now-hash"] = _dateTimeService.GetHashCode();
+            ViewData["date-hash"] = _dateService.GetHashCode();
             ViewData["ctrl-hash"] = this.GetHashCode();
+
             return View();
         }
+
         public IActionResult Privacy()
         {
             return View();
