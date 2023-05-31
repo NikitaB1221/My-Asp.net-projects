@@ -82,3 +82,37 @@ else
     Total: @strings.Length <br />
     Total@strings.Length <br />
 </p>
+
+<hr />
+
+
+@{
+    string[] array = { "Строка1", "Строка2", "Строка3" };
+}
+
+<ul>
+    @foreach (var item in array)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+<table>
+    <tr>
+        <th>Номер</th>
+        <th>Значение</th>
+    </tr>
+    @foreach (var item in array)
+    {
+        <tr>
+            <td>@(Array.IndexOf(array, item) + 1)</td>
+            <td>@item</td>
+        </tr>
+    }
+</table>
+
+
+@foreach (var item in array)
+{
+    <div class="tile">@item</div>
+}
