@@ -3,7 +3,7 @@ using ASP111.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ASP_111.Controllers
+namespace ASP111.Controllers
 {
     public class HomeController : Controller
     {

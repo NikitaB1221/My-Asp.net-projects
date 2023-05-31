@@ -4,7 +4,7 @@ namespace ASP111.Models.User
 {
     public class SignUpFormModel
     {
-        [FromForm(Name = "user-login")]
+        [FromForm(Name = "user-login")]  // <input ... name="user-login"
         public string Login { get; set; } = null!;
 
         [FromForm(Name = "user-password")]
@@ -20,9 +20,20 @@ namespace ASP111.Models.User
         public string? Email { get; set; } = null!;
 
         [FromForm(Name = "user-avatar")]
-        public IFormFile Avatar { get; set; } = null!;
+        public IFormFile Avatar { get; set; } = null!;  // <input type="file" name="user-avatar"
 
         [FromForm(Name = "user-confirm")]
-        public bool IsAgree { get; set; }
+        public bool IsAgree { get; set; }   // <input type = "checkbox"
+
     }
 }
+
+/* Модели и передача данных
+ * В ASP модели - классы, использующиеся для передачи данных.
+ * Очень часто каждое представление имеет свою модель, поэтому моделей
+ * много и их следует группировать по папкам с именами контроллеров.
+ * 
+ * Для приема данных от форм также создают модели. При этом дополнительная
+ * задача таких моделей - согласовать имена полей в форме (разметке)
+ * и в модели
+ */
