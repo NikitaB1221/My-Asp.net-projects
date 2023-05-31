@@ -16,6 +16,8 @@ builder.Services.AddSingleton<IDateService, DateService>();
 builder.Services.AddScoped<TimeService>();
 builder.Services.AddTransient<DateTimeService>();
 
+builder.Services.AddSingleton<ValidatorService>();
+
 String? connectionString = builder.Configuration.GetConnectionString("PlanetScale");
 MySqlConnection connection = new MySqlConnection(connectionString);
 

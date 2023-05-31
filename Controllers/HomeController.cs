@@ -12,18 +12,21 @@ namespace ASP111.Controllers
         private readonly IDateService _dateService;
         private readonly TimeService _timeService;
         private readonly DateTimeService _dateTimeService;
+        private readonly ValidatorService _validatorService;
 
         // признак readonly говорит о том, что данные должны инициализироваться конструктором
         public HomeController(                // параметр в конструкторе требует передачи ссылки,
             ILogger<HomeController> logger,   // иначе объект контроллера не может быть построен
             IDateService dateService,          // - это является зависимостью
             TimeService timeService,
-            DateTimeService dateTimeService)
+            DateTimeService dateTimeService,
+            ValidatorService validatorService)
         {
             _logger = logger;
             _dateService = dateService;
             _timeService = timeService;
             _dateTimeService = dateTimeService;
+            _validatorService = validatorService;
         }
 
         public IActionResult Index()
@@ -51,6 +54,13 @@ namespace ASP111.Controllers
             ViewData["time-hash"] = _timeService.GetHashCode();
             ViewData["date-hash"] = _dateService.GetHashCode();
             ViewData["ctrl-hash"] = this.GetHashCode();
+
+            ViewData["res"] = new bool[] {    
+                _validatorService.ValidateLogin("NormalLogin1"),
+                _validatorService.ValidateLogin("Normal_Login_2"),
+                _validatorService.ValidateLogin("In-valid login"),
+                _validatorService.ValidateLogin("$ invalid ++")
+            };
 
             return View();
         }
