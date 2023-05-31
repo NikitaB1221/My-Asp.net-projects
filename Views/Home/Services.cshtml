@@ -1,5 +1,5 @@
 ﻿@using ASP111.Services
-@inject DateService dateService
+@inject IDateService dateService
 @inject TimeService timeService
 @inject DateTimeService dateTimeService
 @{
@@ -96,7 +96,7 @@
 <p> Данные от службы DateService: <b>@ViewData["date"]</b> </p>
 <p> Данные от службы TimeService: <b>@ViewData["time"]</b> </p>
 <p> Данные от службы DateTimeService: <b>@ViewData["datetime"]</b> </p>
-Д.З. Разработать службу валидации:
+@*Д.З. Разработать службу валидации:
 на вход подается строка, результат - bool.
 В службе два метода: bool ValidateNonEmpty(String) и ValidateLogin
 ValidateNonEmpty - проверяет что строка не null, не "",
@@ -107,5 +107,4 @@ ViewData["res"] = new bool[] {
     _validatorService.ValidateLogin("NormalLogin1"),
     _validatorService.ValidateLogin("Normal_Login_2"),
     _validatorService.ValidateLogin("In-valid login"),
-    _validatorService.ValidateLogin("$ invalid ++"),
-}
+    _validatorService.ValidateLogin("$ invalid ++"),}*@

@@ -1,12 +1,31 @@
+using ASP111.Data;
 using ASP111.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+using MySqlConnector;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<DateService>();
+//builder.Services.AddSingleton<DateService>();
+builder.Services.AddSingleton<IDateService, DateService>();
+
 builder.Services.AddScoped<TimeService>();
 builder.Services.AddTransient<DateTimeService>();
+
+String? connectionString = builder.Configuration.GetConnectionString("PlanetScale");
+MySqlConnection connection = new MySqlConnection(connectionString);
+
+builder.Services.AddDbContext<DataContext>(options =>options.UseMySql(connection,
+    ServerVersion.AutoDetect(connection), 
+    serverOptions =>serverOptions
+            .MigrationsHistoryTable(tableName: HistoryRepository.DefaultTableName,schema: "asp111")
+            .SchemaBehavior(MySqlSchemaBehavior.Translate,
+            (schema, table) => $"{schema}_{table}")
+));
 
 var app = builder.Build();
 
