@@ -1,4 +1,6 @@
-﻿﻿namespace ASP111.Models.User
+﻿using System.Text.Json.Serialization;
+
+namespace ASP111.Models.User
 {
     public class SignUpViewModel
     {

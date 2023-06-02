@@ -1,4 +1,7 @@
-﻿namespace ASP111.Data.Entities
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace ASP111.Data.Entities
 {
     public class User
     {

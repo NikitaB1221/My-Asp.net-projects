@@ -1,5 +1,6 @@
 ﻿using ASP111.Models;
 using ASP111.Services;
+using ASP111.Services.Hash;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -65,9 +66,34 @@ namespace ASP111.Controllers
             return View();
         }
 
-        public IActionResult Data()
+        public ViewResult Data()
         {
             return View();
+        }
+
+        public ViewResult Sessions()
+        {
+            if (HttpContext.Session.Keys.Contains("StoredValue"))
+            {
+                ViewData["StoredValue"] = HttpContext.Session.GetString("StoredValue");
+            }
+            else
+            {
+                ViewData["StoredValue"] = "";
+            }
+            return View();
+        }
+
+        public RedirectToActionResult SetSession()
+        {
+            HttpContext.Session.SetString("StoredValue", DateTime.Now.ToString());
+            return RedirectToAction(nameof(Sessions));
+        }
+
+        public RedirectToActionResult RemoveSession() 
+        {
+            HttpContext.Session.Remove("StoredValue");
+            return RedirectToAction(nameof(Sessions));
         }
 
         public IActionResult Privacy()

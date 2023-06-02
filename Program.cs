@@ -1,5 +1,6 @@
 using ASP111.Data;
 using ASP111.Services;
+using ASP111.Services.Hash;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MySqlConnector;
@@ -17,6 +18,18 @@ builder.Services.AddScoped<TimeService>();
 builder.Services.AddTransient<DateTimeService>();
 
 builder.Services.AddSingleton<ValidatorService>();
+
+builder.Services.AddSingleton<IHashService ,Md5HashService>();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(15 * 60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 String? connectionString = builder.Configuration.GetConnectionString("PlanetScale");
 MySqlConnection connection = new MySqlConnection(connectionString);
@@ -45,6 +58,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
